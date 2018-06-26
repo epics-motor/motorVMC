@@ -43,7 +43,7 @@ class Axis:
 		self.decelStartTime = 0.0
 		self.moveDuration = 0.0
 		#
-		self.enforceLimits = False
+		self.enforceLimits = True
 		#
 		self.status = status.Status()
 	
@@ -52,16 +52,27 @@ class Axis:
 			# Ignore moves while a move is in progress
 			return "Busy"
 
+		self.targetPosition = targetPosition
 		self.lastPosition = self.currentPosition
-		# how to detect if controller has limits enabled?
-		if (self.enforceLimits == True) and (targetPosition > self.highLimit):
-			self.status.setError(True, "Target position exceeds high limit")
-		elif (self.enforceLimits == True) and (targetPosition < self.lowLimit):
-			self.status.setError(True, "Target position exceeds low limit")
+		
+                # Calculate direction
+		if self.targetPosition < self.lastPosition:
+			# Move is negative
+			self.direction = -1
+			self.status.setDirNegative()
+		else:
+			# Move is positive
+			self.direction = 1
+			self.status.setDirPositive()
+
+		# Enforce hard limits at the time motion is commanded
+		if (self.enforceLimits == True) and (self.direction == 1) and (self.status.highLimitActive == 1):
+			self.status.setError(True, "Can't move in positive direction when high limit is active")
+		elif (self.enforceLimits == True) and (self.direction == -1) and (self.status.lowLimitActive == 1):
+			self.status.setError(True, "Can't move in the negative direction when low limit is active")
 		else:
 			#
 			self.moveStartTime = datetime.datetime.now()
-			self.targetPosition = targetPosition
 			
 			# |
 			# |
@@ -72,15 +83,6 @@ class Axis:
 			# L__|_______________|__
 			#
 
-			# Calculate direction
-			if self.targetPosition < self.lastPosition:
-				# Move is negative
-				self.direction = -1
-				self.status.setDirNegative()
-			else:
-				# Move is positive
-				self.direction = 1
-				self.status.setDirPositive()
 			
 			# Calculate values needed for readback position calculation
 			self.moveDistance = abs(self.targetPosition - self.lastPosition)
@@ -297,6 +299,27 @@ class Axis:
 			else:
 				# move is done but neither position or status have been updated
 				self.status.setDoneMoving()
+
+		# Update limit status
+		if self.enforceLimits == True:
+                	#
+                        if self.currentPosition > self.highLimit:
+                        	self.status.setHighLimit()
+                                if (self.status.doneMoving == 0) and (self.direction == 1):
+                                	self.stop()
+                        else:
+                        	self.status.resetHighLimit()
+                          
+                	#
+                        if self.currentPosition < self.lowLimit:
+                        	self.status.setLowLimit()
+                                if (self.status.doneMoving == 0) and (self.direction == -1):
+                                	self.stop()
+                        else:
+                        	self.status.resetLowLimit()
+		else:
+              		self.status.resetLowLimit()
+			self.status.resetHighLimit()
 
 		return self.status.getStatus()
 

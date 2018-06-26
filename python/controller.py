@@ -31,7 +31,7 @@ class Controller:
 				       'AB':self.stopAxis}} 
 		self.axisDict = {}
 		self.axisList = []
-		self.enforceLimits = False
+		self.enforceLimits = True
 
 		for i in range(self.numAxes):
 			self.axisList.append( axis.Axis(i) )

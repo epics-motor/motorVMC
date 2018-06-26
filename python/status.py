@@ -64,6 +64,22 @@ class Status:
 		self.direction = 0
 		self.status &= ~self.DIRECTION
 
+	def setHighLimit(self):
+		self.highLimitActive = 1
+		self.status |= self.HIGH_LIMIT
+
+	def resetHighLimit(self):
+		self.highLimitActive = 0
+		self.status &= ~self.HIGH_LIMIT
+
+	def setLowLimit(self):
+		self.lowLimitActive = 1
+		self.status |= self.LOW_LIMIT
+
+	def resetLowLimit(self):
+		self.lowLimitActive = 0
+		self.status &= ~self.LOW_LIMIT
+
 	def getStatus(self):
 		return self.status
 
