@@ -2,3 +2,4 @@
 /dbd
 /lib
 O.*
+*.pyc
