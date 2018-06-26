@@ -16,7 +16,7 @@ LIBRARY_IOC += vmc
 DBD += vmc.dbd
 
 # specify all source files to be compiled and added to the library
-#vmc_SRCS += xxx
+vmc_SRCS += vmcDriver.cpp
 
 vmc_LIBS += $(EPICS_BASE_IOC_LIBS)
 

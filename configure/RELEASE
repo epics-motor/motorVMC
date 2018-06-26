@@ -23,14 +23,11 @@
 # the CONFIG_SITE file.
 
 # Variables and paths to dependent modules:
-#MODULES = /path/to/modules
-#MYMODULE = $(MODULES)/my-module
-
-# If using the sequencer, point SNCSEQ at its top directory:
-#SNCSEQ = $(MODULES)/seq-ver
+MOTOR = /net/s100dserv/xorApps/epics/motor-devel/testing/pullreq36/motor
+-include $(MOTOR)/configure/RELEASE
 
 # EPICS_BASE should appear last so earlier modules can override stuff:
-EPICS_BASE = /APSshare/epics/base-3.14.12.7
+EPICS_BASE = /APSshare/epics/base-3.15.5
 
 # Set RULES here if you want to use build rules from somewhere
 # other than EPICS_BASE:
