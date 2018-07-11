@@ -5,16 +5,15 @@
 
 < envPaths
 
-cd "${TOP}"
+cd "${TOP}/iocBoot/${IOC}"
 
 ## Register all support components
-dbLoadDatabase "dbd/vmc.dbd"
+dbLoadDatabase "$(TOP)/dbd/vmc.dbd"
 vmc_registerRecordDeviceDriver pdbbase
 
-## Load record instances
-#dbLoadRecords("db/xxx.db","user=kpetersn")
+#
+< vmc.cmd
 
-cd "${TOP}/iocBoot/${IOC}"
 iocInit
 
 ## Start any sequence programs
