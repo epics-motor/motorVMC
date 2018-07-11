@@ -23,7 +23,7 @@
 # the CONFIG_SITE file.
 
 # Variables and paths to dependent modules:
-MOTOR = /net/s100dserv/xorApps/epics/motor-devel/testing/pullreq36/motor
+MOTOR = /net/s100dserv/xorApps/epics/motor-devel/support/motor
 -include $(MOTOR)/configure/RELEASE
 
 # EPICS_BASE should appear last so earlier modules can override stuff:

@@ -25,9 +25,8 @@
 # Variables and paths to dependent modules:
 #MODULES = /path/to/modules
 #MYMODULE = $(MODULES)/my-module
-
-# If using the sequencer, point SNCSEQ at its top directory:
-#SNCSEQ = $(MODULES)/seq-ver
+MOTORVMC=$(TOP)/../..
+-include $(MOTORVMC)/configure/RELEASE
 
 # EPICS_BASE should appear last so earlier modules can override stuff:
 EPICS_BASE = /APSshare/epics/base-3.15.5
