@@ -1,8 +1,5 @@
 #!../../bin/linux-x86_64/vmc
 
-## You may have to change vmc to something else
-## everywhere it appears in this file
-
 < envPaths
 
 cd "${TOP}/iocBoot/${IOC}"
@@ -16,5 +13,4 @@ vmc_registerRecordDeviceDriver pdbbase
 
 iocInit
 
-## Start any sequence programs
-#seq sncxxx,"user=kpetersn"
+# startup complete

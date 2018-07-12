@@ -21,7 +21,7 @@ dbLoadRecords("$(MOTOR)/motorApp/Db/asyn_motor.db","P=$(PREFIX),M=m1,DTYP=asynMo
 dbLoadRecords("$(MOTOR)/motorApp/Db/asyn_motor.db","P=$(PREFIX),M=m2,DTYP=asynMotor,PORT=VMC1,ADDR=1,DESC=Y,EGU=mm,DIR=Pos,VELO=1,VBAS=.1,ACCL=.2,BDST=0,BVEL=1,BACC=.2,MRES=.0025,PREC=4,DHLM=100,DLLM=-100,INIT=")
 dbLoadRecords("$(MOTOR)/motorApp/Db/asyn_motor.db","P=$(PREFIX),M=m3,DTYP=asynMotor,PORT=VMC1,ADDR=2,DESC=Z,EGU=mm,DIR=Pos,VELO=1,VBAS=.1,ACCL=.2,BDST=0,BVEL=1,BACC=.2,MRES=.0025,PREC=4,DHLM=100,DLLM=-100,INIT=")
 # If a substitutions file is used, the "P" macro needs to be modified by hand
-#!dbLoadTemplate("templates/vmc.substitutions")
+#!dbLoadTemplate("vmc.substitutions")
 
 # VirtualMotorController(
 #    portName          The name of the asyn port that will be created for this driver

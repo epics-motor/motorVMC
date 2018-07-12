@@ -1,0 +1,13 @@
+file "$(TOP)/db/asyn_motor.db"
+{
+pattern
+{P,     N,   M,       DTYP,         PORT,  ADDR,  DESC,          EGU, DIR,  VELO,  VBAS,  ACCL,  BDST,  BVEL,  BACC,  MRES,  PREC,  DHLM,  DLLM,  INIT}
+{vmc:,  1,  "m$(N)",  "asynMotor",  VMC1,  0,	  "motor $(N)",  mm,  Pos,  1,     .1,    .2,	 0,	1,     .2,    0.0025,  4,     100,   -100,  ""}
+{vmc:,  2,  "m$(N)",  "asynMotor",  VMC1,  1,	  "motor $(N)",  mm,  Pos,  1,     .1,    .2,	 0,	1,     .2,    0.0025,  4,     100,   -100,  ""}
+{vmc:,  3,  "m$(N)",  "asynMotor",  VMC1,  2,	  "motor $(N)",  mm,  Pos,  1,     .1,    .2,	 0,	1,     .2,    0.0025,  4,     100,   -100,  ""}
+{vmc:,  4,  "m$(N)",  "asynMotor",  VMC1,  3,     "motor $(N)",  deg, Pos,  1,     .1,    .2,    0,	1,     .2,    0.01,    4,     100,   -100,  ""}
+{vmc:,  5,  "m$(N)",  "asynMotor",  VMC1,  4,     "motor $(N)",  deg, Pos,  1,     .1,    .2,    0,	1,     .2,    0.01,    4,     100,   -100,  ""}
+{vmc:,  6,  "m$(N)",  "asynMotor",  VMC1,  5,     "motor $(N)",  deg, Pos,  1,     .1,    .2,    0,	1,     .2,    0.01,    4,     100,   -100,  ""}
+{vmc:,  7,  "m$(N)",  "asynMotor",  VMC1,  6,     "motor $(N)",  deg, Pos,  1,     .1,    .2,    0,	1,     .2,    0.01,    4,     100,   -100,  ""}
+{vmc:,  8,  "m$(N)",  "asynMotor",  VMC1,  7,     "motor $(N)",  deg, Pos,  1,     .1,    .2,    0,	1,     .2,    0.01,    4,     100,   -100,  ""}
+}
