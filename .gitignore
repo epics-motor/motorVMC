@@ -4,3 +4,8 @@ lib
 O.*
 *.pyc
 envPaths
+iocs/vmcIOC/iocBoot/iocvmc/vmc.sh
+iocs/vmcIOC/release.pl
+iocs/vmcIOC/setup_epics_common
+iocs/vmcIOC/start_medm_vmc
+iocs/vmcIOC/start_caQtDM_vmc
