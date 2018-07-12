@@ -33,7 +33,6 @@ doWork () {
   if [ ! -f ${IOC_DIR}/${OUT_FILE} ]
   then
   ${ECHO} "Getting ${IOC_DIR}/${OUT_FILE}"
-  ${ECHO} "${SUBS1} ${SUBS2}"
   ${CURL} -s ${GITHUB}/${IN_FILE} | sed -e "${SUBS1}" -e "${SUBS2}" -e "${SUBS3}" > ${IOC_DIR}/${OUT_FILE}
   if [ "${EXE}" != "" ]
   then
