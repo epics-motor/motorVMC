@@ -27,6 +27,7 @@
 #MYMODULE = $(MODULES)/my-module
 MOTORVMC=$(TOP)/../..
 -include $(MOTORVMC)/configure/RELEASE
+-include $(MOTORVMC)/configure/RELEASE.local
 
 # EPICS_BASE should appear last so earlier modules can override stuff:
 EPICS_BASE = /APSshare/epics/base-3.15.5
