@@ -1,5 +1,5 @@
 # motorVMC
-A Virtual Motor Controller (VMC) with EPICS support.
+A Virtual Motor Controller (VMC) with EPICS support.  NOTE: this module can't be used as a submodule of motor, yet.
 
 ## Python scripts
 
