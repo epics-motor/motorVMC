@@ -16,18 +16,17 @@ DBD += vmc.dbd
 vmc_DBD += base.dbd
 
 # Include dbd files from all support applications:
-vmc_DBD += asyn.dbd drvAsynIPPort.dbd
+vmc_DBD += asyn.dbd 
+vmc_DBD += drvAsynIPPort.dbd
 vmc_DBD += motorSupport.dbd
 vmc_DBD += vmcSupport.dbd
 
 # Add all the support libraries needed by this IOC
-#vmc_LIBS += xxx
-vmc_LIBS += asyn
-vmc_LIBS += motor
 vmc_LIBS += vmc
-#!vmc_LIBS += softMotor
-#!vmc_LIBS += motorSimSupport
-#!vmc_LIBS += 
+#vmc_LIBS += motorSimSupport
+#vmc_LIBS += softMotor
+vmc_LIBS += motor
+vmc_LIBS += asyn
 
 # vmc_registerRecordDeviceDriver.cpp derives from vmc.dbd
 vmc_SRCS += vmc_registerRecordDeviceDriver.cpp

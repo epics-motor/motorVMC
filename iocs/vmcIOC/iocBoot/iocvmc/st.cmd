@@ -8,9 +8,15 @@ cd "${TOP}/iocBoot/${IOC}"
 dbLoadDatabase "$(TOP)/dbd/vmc.dbd"
 vmc_registerRecordDeviceDriver pdbbase
 
+## motorUtil (allstop & alldone)
+dbLoadRecords("$(MOTOR)/db/motorUtil.db", "P=vmc:")
+
 #
 < vmc.cmd
 
 iocInit
 
-# startup complete
+## motorUtil (allstop & alldone)
+motorUtilInit("vmc:")
+
+# Boot complete
