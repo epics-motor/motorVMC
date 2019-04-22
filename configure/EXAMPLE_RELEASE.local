@@ -1,0 +1,4 @@
+MOTOR=
+-include $(MOTOR)/configure/RELEASE
+# path to motorVMC is needed to build the IOC inside motorVMC, but outside motor
+MOTOR_VMC=

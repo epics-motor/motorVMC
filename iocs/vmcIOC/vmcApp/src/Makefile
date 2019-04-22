@@ -16,7 +16,8 @@ DBD += vmc.dbd
 vmc_DBD += base.dbd
 
 # Include dbd files from all support applications:
-vmc_DBD += asyn.dbd drvAsynIPPort.dbd
+vmc_DBD += asyn.dbd 
+vmc_DBD += drvAsynIPPort.dbd
 vmc_DBD += motorSupport.dbd
 vmc_DBD += vmcSupport.dbd
 
