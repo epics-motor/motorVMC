@@ -22,13 +22,11 @@ vmc_DBD += motorSupport.dbd
 vmc_DBD += vmcSupport.dbd
 
 # Add all the support libraries needed by this IOC
-#vmc_LIBS += xxx
-vmc_LIBS += asyn
-vmc_LIBS += motor
 vmc_LIBS += vmc
-#!vmc_LIBS += softMotor
-#!vmc_LIBS += motorSimSupport
-#!vmc_LIBS += 
+#vmc_LIBS += motorSimSupport
+#vmc_LIBS += softMotor
+vmc_LIBS += motor
+vmc_LIBS += asyn
 
 # vmc_registerRecordDeviceDriver.cpp derives from vmc.dbd
 vmc_SRCS += vmc_registerRecordDeviceDriver.cpp
