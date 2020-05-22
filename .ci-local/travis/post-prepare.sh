@@ -14,9 +14,13 @@ CACHEDIR=${CACHEDIR:-${HOME}/.cache}
 #!echo -e "${ANSI_BLUE}Contents of motor-${MOTOR}/modules/RELEASE.*.local${ANSI_RESET}"
 #!cat ${CACHEDIR}/motor-${MOTOR}/modules/RELEASE.*
 #!echo -e "${ANSI_BLUE}End of motor-${MOTOR}/modules/RELEASE.*.local${ANSI_RESET}"
+pwd
+
+# Copy the travis RELEASE.local to the configure dir
+cp -f RELEASE.local configure/RELEASE.local
 
 # Enable the building of example IOCs
-echo -e "${ANSI_BLUE}Creating CONFIG_SITE.local${ANSI_RESET}"
-echo -e "BUILD_IOCS = YES" > CONFIG_SITE.local
-cat CONFIG_SITE.local
-echo -e "${ANSI_BLUE}End of CONFIG_SITE.local${ANSI_RESET}"
+echo -e "${ANSI_BLUE}Creating configure/CONFIG_SITE.local${ANSI_RESET}"
+echo -e "BUILD_IOCS = YES" > configure/CONFIG_SITE.local
+cat configure/CONFIG_SITE.local
+echo -e "${ANSI_BLUE}End of configure/CONFIG_SITE.local${ANSI_RESET}"
