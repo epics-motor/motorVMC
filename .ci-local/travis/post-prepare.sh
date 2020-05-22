@@ -14,10 +14,12 @@ CACHEDIR=${CACHEDIR:-${HOME}/.cache}
 #!echo -e "${ANSI_BLUE}Contents of motor-${MOTOR}/modules/RELEASE.*.local${ANSI_RESET}"
 #!cat ${CACHEDIR}/motor-${MOTOR}/modules/RELEASE.*
 #!echo -e "${ANSI_BLUE}End of motor-${MOTOR}/modules/RELEASE.*.local${ANSI_RESET}"
+
+# The module to be built isn't in the cache directory with the dependencies
 pwd
 
 # Copy the travis RELEASE.local to the configure dir
-cp -f ../RELEASE.local configure/RELEASE.local
+cp -f ${CACHEDIR}/RELEASE.local configure/RELEASE.local
 
 # Enable the building of example IOCs
 echo -e "${ANSI_BLUE}Creating configure/CONFIG_SITE.local${ANSI_RESET}"
