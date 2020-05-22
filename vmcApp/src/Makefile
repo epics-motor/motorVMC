@@ -20,6 +20,7 @@ vmcSupport_DBD += vmc.dbd
 # specify all source files to be compiled and added to the library
 vmc_SRCS += vmcDriver.cpp
 
+vmc_LIBS += motor asyn
 vmc_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 #===========================
