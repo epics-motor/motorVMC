@@ -17,7 +17,7 @@ CACHEDIR=${CACHEDIR:-${HOME}/.cache}
 pwd
 
 # Copy the travis RELEASE.local to the configure dir
-cp -f RELEASE.local configure/RELEASE.local
+cp -f ../RELEASE.local configure/RELEASE.local
 
 # Enable the building of example IOCs
 echo -e "${ANSI_BLUE}Creating configure/CONFIG_SITE.local${ANSI_RESET}"
