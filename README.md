@@ -1,6 +1,8 @@
 # motorVMC
 A Virtual Motor Controller (VMC) with EPICS support.  NOTE: this module can't be used as a submodule of motor, yet.
 
+[![Build Status](https://travis-ci.org/epics-motor/motorVMC.png)](https://travis-ci.org/epics-motor/motorVMC)
+
 ## Python scripts
 
 The server behaves like a eight-axis motor controller. The default axis values are consistent with stepper motors in half-step mode (400 steps per rev).  The axes can be addressed by name `(X, Y, Z, T, U, V, R, S)` or number `(1, 2, 3, 4, 5, 6, 7, 8)`.  The controller accepts values in units of counts.  The server returns an "OK" string in response to non-query commands.
