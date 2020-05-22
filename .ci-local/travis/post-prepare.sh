@@ -17,6 +17,6 @@ CACHEDIR=${CACHEDIR:-${HOME}/.cache}
 
 # Enable the building of example IOCs
 echo -e "${ANSI_BLUE}Creating CONFIG_SITE.local${ANSI_RESET}"
-echo -e "BUILD_IOCS = NO" > CONFIG_SITE.local
+echo -e "BUILD_IOCS = YES" > CONFIG_SITE.local
 cat CONFIG_SITE.local
 echo -e "${ANSI_BLUE}End of CONFIG_SITE.local${ANSI_RESET}"
