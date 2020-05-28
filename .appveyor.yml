@@ -73,19 +73,19 @@ environment:
   - CMP: vs2019
     SET: base7-0
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-  - CMP: mingw
-    SET: base7-0
-  - CMP: vs2019
-    SET: base3-15
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-  - CMP: vs2019
-    SET: base3-14
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+  #!- CMP: mingw
+  #!  SET: base7-0
+  #!- CMP: vs2019
+  #!  SET: base3-15
+  #!  APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+  #!- CMP: vs2019
+  #!  SET: base3-14
+  #!  APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
   #- CMP: vs2017
   #  SET: base7-0
   #  APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-  - CMP: vs2015
-    SET: base7-0
+  #!- CMP: vs2015
+  #!  SET: base7-0
   #- CMP: vs2013
   #  SET: base7-0
 
@@ -110,6 +110,7 @@ matrix:
 
 build_script:
   - cmd: python .ci/appveyor/do.py prepare
+  - cmd: .ci-local/appveyor/post-prepare.bat
   - cmd: python .ci/appveyor/do.py build
 
 test_script:
