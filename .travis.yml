@@ -12,14 +12,6 @@ cache:
 env:
   global:
     - SETUP_PATH=.ci
-    - MODULES="sncseq ipac asyn autosave busy motor"
-    - SNCSEQ=R2-2-8
-    - IPAC=master
-    - ASYN=R4-38
-    - AUTOSAVE=R5-9
-    - BUSY=R1-7-1
-    - MOTOR=master
-    - MOTOR_RECURSIVE=NO
     
 addons:
   apt:
@@ -76,56 +68,56 @@ jobs:
 
 # Default gcc and clang, static build
 
-  - env: BASE=7.0
+  - env: SET=base7-0
 
-  - env: BASE=7.0
+  - env: SET=base7-0
     compiler: clang
 
-  - env: BASE=7.0 STATIC=YES
+  - env: SET=base7-0 STATIC=YES
 
 # Trusty: compiler versions very close to RHEL 7
 
-  - env: BASE=7.0
+  - env: SET=base7-0
     dist: trusty
 
 # Cross-compilations to Windows using MinGW and WINE
     
-  - env: BASE=7.0 WINE=32 TEST=NO STATIC=YES
+  - env: SET=base7-0 WINE=32 TEST=NO STATIC=YES
     compiler: mingw
 
-  - env: BASE=7.0 WINE=64 TEST=NO STATIC=NO
+  - env: SET=base7-0 WINE=64 TEST=NO STATIC=NO
     compiler: mingw
 
 # MacOS build
 
-  - env: BASE=7.0
+  - env: SET=base7-0
     os: osx
     compiler: clang
 
 # Cross-compilation to RTEMS
 
-  - env: BASE=7.0 RTEMS=4.10
+  - env: SET=base7-0 RTEMS=4.10
 
-  - env: BASE=7.0 RTEMS=4.9
+  - env: SET=base7-0 RTEMS=4.9
 
 # Older Base releases
 
-  - env: BASE=R3.15.7
+  - env: SET=base3-15
 
-  - env: BASE=R3.15.7 STATIC=YES
+  - env: SET=base3-15 STATIC=YES
 
 # 3.14.12.2 build fails on newer distributions and doesn't know tapfiles target
 
-  - env: BASE=R3.14.12.8
+  - env: SET=base3-14
 
-  - env: BASE=R3.14.12.8 STATIC=YES
+  - env: SET=base3-14 STATIC=YES
 
 # Other gcc versions (added as an extra package)
 
-  - env: BASE=7.0
+  - env: SET=base7-0
     compiler: gcc-6
     addons: { apt: { packages: ["g++-6"], sources: ["ubuntu-toolchain-r-test"] } }
 
-  - env: BASE=7.0
+  - env: SET=base7-0
     compiler: gcc-7
     addons: { apt: { packages: ["g++-7"], sources: ["ubuntu-toolchain-r-test"] } }
