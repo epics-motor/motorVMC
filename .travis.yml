@@ -78,14 +78,6 @@ jobs:
 
   - env: SET=base3-15 BCFG=static
 
-# Trusty: compiler versions very close to RHEL 7
-
-  - env: SET=base7-0
-    dist: trusty
-
-  - env: SET=base7-0 EXTRA="CMD_CXXFLAGS=-std=c++11"
-    dist: trusty
-
 # Default gcc, static build
 
   - env: SET=base7-0
@@ -99,6 +91,14 @@ jobs:
 
   - env: SET=base7-0 EXTRA="CMD_CXXFLAGS=-std=c++11"
     compiler: clang
+
+# Trusty: compiler versions very close to RHEL 7
+
+  - env: SET=base7-0
+    dist: trusty
+
+  - env: SET=base7-0 EXTRA="CMD_CXXFLAGS=-std=c++11"
+    dist: trusty
 
 # Other gcc versions (added as an extra package)
 
@@ -138,6 +138,6 @@ jobs:
 
 # Cross-compilation to RTEMS
 
-  - env: SET=base7-0 RTEMS=4.10
-
   - env: SET=base7-0 RTEMS=4.9
+
+  - env: SET=base7-0 RTEMS=4.10
