@@ -84,7 +84,7 @@ jobs:
 
   - env: SET=base7-0 BCFG=static
 
-# Default clang, static build
+# Default clang build
 
   - env: SET=base7-0
     compiler: clang
