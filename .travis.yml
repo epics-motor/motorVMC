@@ -68,17 +68,15 @@ script:
 jobs:
   include:
 
-# Default gcc and clang, static build
+# Older Base releases
 
-  - env: SET=base7-0
+  - env: SET=base3-14
 
-  - env: SET=base7-0
-    compiler: clang
+  - env: SET=base3-14 BCFG=static
 
-  - env: SET=base7-0 BCFG=static
+  - env: SET=base3-15
 
-  - env: SET=base7-0 EXTRA="CMD_CXXFLAGS=-std=c++11"
-    compiler: clang
+  - env: SET=base3-15 BCFG=static
 
 # Trusty: compiler versions very close to RHEL 7
 
@@ -87,6 +85,30 @@ jobs:
 
   - env: SET=base7-0 EXTRA="CMD_CXXFLAGS=-std=c++11"
     dist: trusty
+
+# Default gcc, static build
+
+  - env: SET=base7-0
+
+  - env: SET=base7-0 BCFG=static
+
+# Default clang, static build
+
+  - env: SET=base7-0
+    compiler: clang
+
+  - env: SET=base7-0 EXTRA="CMD_CXXFLAGS=-std=c++11"
+    compiler: clang
+
+# Other gcc versions (added as an extra package)
+
+  - env: SET=base7-0
+    compiler: gcc-6
+    addons: { apt: { packages: ["g++-6"], sources: ["ubuntu-toolchain-r-test"] } }
+
+  - env: SET=base7-0
+    compiler: gcc-7
+    addons: { apt: { packages: ["g++-7"], sources: ["ubuntu-toolchain-r-test"] } }
 
 # Cross-compilations to Windows using MinGW and WINE
     
@@ -119,25 +141,3 @@ jobs:
   - env: SET=base7-0 RTEMS=4.10
 
   - env: SET=base7-0 RTEMS=4.9
-
-# Older Base releases
-
-  - env: SET=base3-15
-
-  - env: SET=base3-15 BCFG=static
-
-# 3.14.12.2 build fails on newer distributions and doesn't know tapfiles target
-
-  - env: SET=base3-14
-
-  - env: SET=base3-14 BCFG=static
-
-# Other gcc versions (added as an extra package)
-
-  - env: SET=base7-0
-    compiler: gcc-6
-    addons: { apt: { packages: ["g++-6"], sources: ["ubuntu-toolchain-r-test"] } }
-
-  - env: SET=base7-0
-    compiler: gcc-7
-    addons: { apt: { packages: ["g++-7"], sources: ["ubuntu-toolchain-r-test"] } }
