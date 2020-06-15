@@ -12,7 +12,9 @@ cache:
 env:
   global:
     - SETUP_PATH=.ci-local:.ci
-    
+    # for the sequencer on Windows
+    - CHOCO=re2c
+
 addons:
   apt:
     packages:
@@ -29,19 +31,19 @@ addons:
     - qemu-system-x86
   homebrew:
     packages:
-    # for all EPICS builds
-    - bash
     # for the sequencer
     - re2c
     update: true
 
 install:
-  - ./.ci/travis/prepare.sh
+  - python .ci/cue.py prepare
   # ugly hacks go here:
   - ./.ci-local/travis/post-prepare.sh
 
 script:
-  - ./.ci/travis/build.sh
+  - python .ci/cue.py build
+  - python .ci/cue.py test
+  - python .ci/cue.py test-results
 
 # If you need to do more during install and build,
 # add a local directory to your module and do e.g.
@@ -73,20 +75,32 @@ jobs:
   - env: SET=base7-0
     compiler: clang
 
-  - env: SET=base7-0 STATIC=YES
+  - env: SET=base7-0 BCFG=static
+
+  - env: BASE=7.0 EXTRA="CMD_CXXFLAGS=-std=c++11"
+    compiler: clang
 
 # Trusty: compiler versions very close to RHEL 7
 
   - env: SET=base7-0
     dist: trusty
 
+  - env: BASE=7.0 EXTRA="CMD_CXXFLAGS=-std=c++11"
+    dist: trusty
+
 # Cross-compilations to Windows using MinGW and WINE
     
-  - env: SET=base7-0 WINE=32 TEST=NO STATIC=YES
+  - env: SET=base7-0 WINE=32 TEST=NO BCFG=static
     compiler: mingw
 
-  - env: SET=base7-0 WINE=64 TEST=NO STATIC=NO
+  - env: SET=base7-0 WINE=64 TEST=NO
     compiler: mingw
+
+# Windows builds
+
+  - env: BASE=7.0 
+    os: windows
+    compiler: vs2017
 
 # MacOS build
 
@@ -104,13 +118,13 @@ jobs:
 
   - env: SET=base3-15
 
-  - env: SET=base3-15 STATIC=YES
+  - env: SET=base3-15 BCFG=static
 
 # 3.14.12.2 build fails on newer distributions and doesn't know tapfiles target
 
   - env: SET=base3-14
 
-  - env: SET=base3-14 STATIC=YES
+  - env: SET=base3-14 BCFG=static
 
 # Other gcc versions (added as an extra package)
 
