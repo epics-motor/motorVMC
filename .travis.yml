@@ -38,7 +38,7 @@ addons:
 install:
   - python .ci/cue.py prepare
   # ugly hacks go here:
-  - ./.ci-local/travis/post-prepare.sh
+  - python .ci-local/travis/post-prepare.py
 
 script:
   - python .ci/cue.py build
