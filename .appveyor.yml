@@ -69,10 +69,10 @@ environment:
   # common / default variables for all jobs
   SETUP_PATH: .ci-local:.ci
 
-  #!matrix:
-  #!- CMP: vs2019
-  #!  SET: base7-0
-  #!  APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+  matrix:
+  - CMP: vs2019
+    SET: base7-0
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
   #!- CMP: mingw
   #!  SET: base7-0
   #!- CMP: vs2019
@@ -99,8 +99,8 @@ matrix:
   exclude:
   # Exclude more jobs to reduce build time
   # E.g., skip 32-bit for newer compilers
-  #!- platform: x86
-  #!  CMP: vs2019
+  - platform: x86
+    CMP: vs2019
   #- platform: x86
   #  CMP: vs2015
 
@@ -108,17 +108,17 @@ matrix:
 #     building & testing          #
 #---------------------------------#
 
-#!build_script:
-#!  - cmd: python .ci/appveyor/do.py prepare
-#!  - cmd: .ci-local/appveyor/post-prepare.bat
-#!  - cmd: python .ci/appveyor/do.py build
-#!
-#!test_script:
-#!  - cmd: python .ci/appveyor/do.py test
-#!
-#!on_finish:
-#!  - ps: Get-ChildItem *.tap -Recurse -Force | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
-#!  - cmd: python .ci/appveyor/do.py build test-results -s
+build_script:
+  - cmd: python .ci/appveyor/do.py prepare
+  - cmd: .ci-local/appveyor/post-prepare.bat
+  - cmd: python .ci/appveyor/do.py build
+
+test_script:
+  - cmd: python .ci/appveyor/do.py test
+
+on_finish:
+  - ps: Get-ChildItem *.tap -Recurse -Force | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  - cmd: python .ci/appveyor/do.py build test-results -s
 
 #---------------------------------#
 #         debugging               #
