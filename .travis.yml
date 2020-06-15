@@ -77,7 +77,7 @@ jobs:
 
   - env: SET=base7-0 BCFG=static
 
-  - env: BASE=7.0 EXTRA="CMD_CXXFLAGS=-std=c++11"
+  - env: SET=base7-0 EXTRA="CMD_CXXFLAGS=-std=c++11"
     compiler: clang
 
 # Trusty: compiler versions very close to RHEL 7
@@ -85,20 +85,26 @@ jobs:
   - env: SET=base7-0
     dist: trusty
 
-  - env: BASE=7.0 EXTRA="CMD_CXXFLAGS=-std=c++11"
+  - env: SET=base7-0 EXTRA="CMD_CXXFLAGS=-std=c++11"
     dist: trusty
 
 # Cross-compilations to Windows using MinGW and WINE
     
   - env: SET=base7-0 WINE=32 TEST=NO BCFG=static
-    compiler: mingw
 
   - env: SET=base7-0 WINE=64 TEST=NO
-    compiler: mingw
 
 # Windows builds
 
-  - env: BASE=7.0 
+  - env: SET=base7-0 
+    os: windows
+    compiler: vs2017
+
+  - env: SET=base7-0 BCFG=static
+    os: windows
+    compiler: vs2017
+
+  - env: SET=base7-0 BCFG=debug
     os: windows
     compiler: vs2017
 
