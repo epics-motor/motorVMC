@@ -97,7 +97,7 @@ jobs:
   - env: SET=base7-0
     dist: trusty
 
-  - env: SET=base7-0 EXTRA="CMD_CXXFLAGS=-std=c++11"
+  - env: SET=base7-0 BCFG=debug
     dist: trusty
 
 # Other gcc versions (added as an extra package)
