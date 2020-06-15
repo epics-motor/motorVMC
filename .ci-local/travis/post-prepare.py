@@ -19,7 +19,7 @@ print("{}End of updated configure/RELEASE.local{}".format(ANSI_BLUE, ANSI_RESET)
 
 # Enable the building of example IOCs
 print("{}Contents of updated configure/CONFIG_SITE.local{}".format(ANSI_BLUE, ANSI_RESET))
-os.system('echo -e "BUILD_IOCS = YES" > configure/CONFIG_SITE.local')
+os.system('echo "BUILD_IOCS = YES" > configure/CONFIG_SITE.local')
 os.system('cat configure/CONFIG_SITE.local')
 print("{}End of updated configure/CONFIG_SITE.local{}".format(ANSI_BLUE, ANSI_RESET))
 
