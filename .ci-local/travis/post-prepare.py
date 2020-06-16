@@ -12,7 +12,7 @@ from cue import *
 def cat(filename):
     with open(filename, 'r') as fh:
         for line in fh:
-            print(line)
+            print(line.strip())
 
 # Add the path to the driver module to the RELEASE.local file, since it is needed by the example IOC
 update_release_local('MOTOR_VMC', os.getenv('TRAVIS_BUILD_DIR'))
