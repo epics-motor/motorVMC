@@ -7,7 +7,9 @@ shutil.copy('.ci/cue.py', '.ci-local/travis')
 from cue import *
 
 print(ci)
-
+print()
+print(os.environ)
+print()
 root, dirs, files = os.walk(cachedir)
 print(dirs)
 
