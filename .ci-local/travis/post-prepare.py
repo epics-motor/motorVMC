@@ -7,14 +7,18 @@ import shutil
 shutil.copy('.ci/cue.py', '.ci-local/travis')
 from cue import *
 
-# Print the contents of a file
 def cat(filename):
+    '''
+    Print the contents of a file
+    '''
     with open(filename, 'r') as fh:
         for line in fh:
             print(line.strip())
 
-# Include the contents of a file in the travis log
 def sanity_check(filename):
+    '''
+    Include the contents of a file in the travis log
+    '''
     print("{}Contents of {}{}".format(ANSI_BLUE, filename, ANSI_RESET))
     cat(filename)
     print("{}End of {}{}".format(ANSI_BLUE, filename, ANSI_RESET))
