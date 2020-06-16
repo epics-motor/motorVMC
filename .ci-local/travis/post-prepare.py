@@ -29,7 +29,7 @@ print("{}End of updated {}{}".format(ANSI_BLUE, filename, ANSI_RESET))
 # Enable the building of example IOCs
 filename = "configure/CONFIG_SITE.local"
 print("{}Contents of {}{}".format(ANSI_BLUE, filename, ANSI_RESET))
-fh = open(filename, 'a')
+fh = open(filename, 'w')
 fh.write("BUILD_IOCS = YES")
 fh.close()
 cat(filename)
