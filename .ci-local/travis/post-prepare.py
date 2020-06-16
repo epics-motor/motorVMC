@@ -11,6 +11,7 @@ def get_motor_dir():
     motor_dir = None
     for root, dirs, files in os.walk(cachedir):
         for directory in dirs:
+            print(directory)
             if 'motor' in directory:
                 motor_dir = directory
     return motor_dir
