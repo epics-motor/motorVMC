@@ -7,17 +7,12 @@ import shutil
 shutil.copy('.ci/cue.py', '.ci-local/travis')
 from cue import *
 
-def get_motor_dir():
-    motor_dir = None
-    for root, dirs, files in os.walk(cachedir):
-        for directory in dirs:
-            print(directory)
-            if 'motor' in directory:
-                motor_dir = directory
-    return motor_dir
 
-motor_dir = get_motor_dir()
-print(motor_dir)
+# Print the contents of a file
+def cat(filename):
+    with open(filename, 'r') as fh:
+        for line in fh:
+            print(line)
 
 # Add the path to the driver module to the RELEASE.local file, since it is needed by the example IOC
 update_release_local('MOTOR_VMC', os.getenv('TRAVIS_BUILD_DIR'))
@@ -26,15 +21,20 @@ update_release_local('MOTOR_VMC', os.getenv('TRAVIS_BUILD_DIR'))
 shutil.copy("{}/RELEASE.local".format(cachedir), "configure/RELEASE.local")
 
 # Sanity check
-print("{}Contents of updated configure/RELEASE.local{}".format(ANSI_BLUE, ANSI_RESET))
-os.system('cat configure/RELEASE.local')
-print("{}End of updated configure/RELEASE.local{}".format(ANSI_BLUE, ANSI_RESET))
+filename = "configure/RELEASE.local"
+print("{}Contents of updated {}{}".format(ANSI_BLUE, filename, ANSI_RESET))
+cat(filename)
+print("{}End of updated {}{}".format(ANSI_BLUE, filename, ANSI_RESET))
 
 # Enable the building of example IOCs
-print("{}Contents of updated configure/CONFIG_SITE.local{}".format(ANSI_BLUE, ANSI_RESET))
-os.system('echo "BUILD_IOCS = YES" > configure/CONFIG_SITE.local')
-os.system('cat configure/CONFIG_SITE.local')
-print("{}End of updated configure/CONFIG_SITE.local{}".format(ANSI_BLUE, ANSI_RESET))
+filename = "configure/CONFIG_SITE.local"
+print("{}Contents of {}{}".format(ANSI_BLUE, filename, ANSI_RESET))
+fh = open(filename, 'a')
+fh.write("BUILD_IOCS = YES")
+fh.close()
+cat(filename)
+print("{}End of {}{}".format(ANSI_BLUE, filename, ANSI_RESET))
 
 # Remove cue.py
-os.system('rm -f .ci-local/travis/cue.py')
+os.remove('.ci-local/travis/cue.py')
+os.remove('.ci-local/travis/cue.pyc')
