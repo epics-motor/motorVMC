@@ -6,6 +6,11 @@ import shutil
 shutil.copy('.ci/cue.py', '.ci-local/travis')
 from cue import *
 
+print(ci)
+
+root, dirs, files = os.walk(cachedir)
+print(dirs)
+
 # Add the path to the driver module to the RELEASE.local file, since it is needed by the example IOC
 update_release_local('MOTOR_VMC', os.getenv('TRAVIS_BUILD_DIR'))
 
