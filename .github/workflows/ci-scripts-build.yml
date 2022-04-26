@@ -5,7 +5,7 @@
 
 # Set the 'name:' properties to values that work for you (MYMODULE)
 
-name: MYMODULE
+name: motorVMC
 
 # Trigger on pushes and PRs to any branch
 on:
@@ -36,6 +36,7 @@ jobs:
       RTEMS_TARGET: ${{ matrix.rtems_target }}
       EXTRA: ${{ matrix.extra }}
       TEST: ${{ matrix.test }}
+      SET: ${{ matrix.set }}
     strategy:
       fail-fast: false
       matrix:
@@ -45,12 +46,14 @@ jobs:
             cmp: gcc
             configuration: default
             base: "3.15"
+            set: modules
             name: "3.15 Ub-20 gcc-9"
         
-          - os: windows-2019
-            cmp: vs2019
-            configuration: static
-            name: "Win2019 MSC-19, static"
+          #- os: windows-2019
+          #  cmp: vs2019
+          #  configuration: static
+          #  set: modules
+          #  name: "Win2019 MSC-19, static"
 
     steps:
     - uses: actions/checkout@v2
