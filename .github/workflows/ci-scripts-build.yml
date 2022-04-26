@@ -49,11 +49,12 @@ jobs:
             set: modules
             name: "3.15 Ub-20 gcc-9"
         
-          #- os: windows-2019
-          #  cmp: vs2019
-          #  configuration: static
-          #  set: modules
-          #  name: "Win2019 MSC-19, static"
+          - os: windows-2019
+            cmp: vs2019
+            configuration: static
+            base: "7.0"
+            set: modules
+            name: "Win2019 MSC-19, static"
 
     steps:
     - uses: actions/checkout@v2
