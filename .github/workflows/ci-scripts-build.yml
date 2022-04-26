@@ -7,13 +7,15 @@
 
 name: motorVMC
 
-# Trigger on pushes and PRs to any branch
+# Trigger on pushes to the master branch and PRs
 on:
   push:
     paths-ignore:
       - 'documentation/*'
       - '**/*.html'
       - '**/*.md'
+    branches:
+      - master
   pull_request:
 
 env:
