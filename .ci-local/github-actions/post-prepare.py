@@ -33,11 +33,16 @@ else:
 module_dir = os.getenv('GITHUB_WORKSPACE')
 
 # Add the path to the driver module to the RELEASE.local file, since it is needed by the example IOC
-update_release_local('MOTOR_VMC', module_dir)
+#!update_release_local('MOTOR_VMC', module_dir)
 
 # Copy the github-actions RELEASE.local to the configure dir
 filename = "configure/RELEASE.local"
 shutil.copy("{}/RELEASE.local".format(cache_dir), filename)
+
+# Add the path to the driver module to the RELEASE.local file, since it is needed by the example IOC
+fh = open(filename, "a")
+fh.write("MOTOR_VMC={}\n".format(module_dir))
+fh.close()
 sanity_check(filename)
 
 # Enable the building of example IOCs
