@@ -2,10 +2,17 @@
 
 import os
 import shutil
+import re
 
-# ugly hack: copy cue.py so that it can be imported
-shutil.copy('.ci/cue.py', '.ci-local/github-actions')
-from cue import *
+# Setup ANSI Colors (copied from cue.py)
+ANSI_RED = "\033[31;1m"
+ANSI_GREEN = "\033[32;1m"
+ANSI_YELLOW = "\033[33;1m"
+ANSI_BLUE = "\033[34;1m"
+ANSI_MAGENTA = "\033[35;1m"
+ANSI_CYAN = "\033[36;1m"
+ANSI_RESET = "\033[0m"
+ANSI_CLEAR = "\033[0K"
 
 def cat(filename):
     '''
@@ -17,7 +24,7 @@ def cat(filename):
 
 def sanity_check(filename):
     '''
-    Include the contents of a file in the travis log
+    Include the contents of a file in the github-actions log
     '''
     print("{}Contents of {}{}".format(ANSI_BLUE, filename, ANSI_RESET))
     cat(filename)
@@ -32,16 +39,26 @@ else:
 
 module_dir = os.getenv('GITHUB_WORKSPACE')
 
-# Add the path to the driver module to the RELEASE.local file, since it is needed by the example IOC
-#!update_release_local('MOTOR_VMC', module_dir)
-
 # Copy the github-actions RELEASE.local to the configure dir
 filename = "configure/RELEASE.local"
 shutil.copy("{}/RELEASE.local".format(cache_dir), filename)
 
+# Get the variable from the example release file
+example = "configure/EXAMPLE_RELEASE.local"
+fh = open(example, "r")
+lines = fh.readlines()
+fh.close()
+pObj = re.compile('(MOTOR_[^=]+)')
+module_var = None
+for line in lines:
+    mObj = pObj.match(line)
+    if mObj != None:
+      motor_var = mObj.group()
+      break
+
 # Add the path to the driver module to the RELEASE.local file, since it is needed by the example IOC
 fh = open(filename, "a")
-fh.write("MOTOR_VMC={}\n".format(module_dir))
+fh.write("{}={}\n".format(module_var, module_dir))
 fh.close()
 sanity_check(filename)
 
@@ -51,7 +68,3 @@ fh = open(filename, 'w')
 fh.write("BUILD_IOCS = YES")
 fh.close()
 sanity_check(filename)
-
-# Remove cue.py
-os.remove('.ci-local/github-actions/cue.py')
-#os.remove('.ci-local/github-actions/cue.pyc')
