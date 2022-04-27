@@ -25,6 +25,8 @@ def sanity_check(filename):
 
 if 'CACHEDIR' in os.environ:
     cachedir = os.environ['CACHEDIR']
+else:
+    cachedir = os.path.join(os.environ['HOME'], ".cache")
 
 if 'PWD' in os.environ:
     pwd = os.getenv('PWD')
