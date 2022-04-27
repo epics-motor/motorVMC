@@ -36,7 +36,7 @@ else:
 # Add the path to the driver module to the RELEASE.local file, since it is needed by the example IOC
 update_release_local('MOTOR_VMC', pwd)
 
-# Copy the travis RELEASE.local to the configure dir
+# Copy the github-actions RELEASE.local to the configure dir
 filename = "configure/RELEASE.local"
 shutil.copy("{}/RELEASE.local".format(cachedir), filename)
 sanity_check(filename)
@@ -50,4 +50,4 @@ sanity_check(filename)
 
 # Remove cue.py
 os.remove('.ci-local/github-actions/cue.py')
-os.remove('.ci-local/github-actions/cue.pyc')
+#os.remove('.ci-local/github-actions/cue.pyc')
