@@ -23,8 +23,16 @@ def sanity_check(filename):
     cat(filename)
     print("{}End of {}{}".format(ANSI_BLUE, filename, ANSI_RESET))
 
+if 'CACHEDIR' in os.environ:
+    cachedir = os.environ['CACHEDIR']
+
+if 'PWD' in os.environ:
+    pwd = os.getenv('PWD')
+else:
+    pwd = "."
+
 # Add the path to the driver module to the RELEASE.local file, since it is needed by the example IOC
-update_release_local('MOTOR_VMC', os.getenv('PWD'))
+update_release_local('MOTOR_VMC', pwd)
 
 # Copy the travis RELEASE.local to the configure dir
 filename = "configure/RELEASE.local"
