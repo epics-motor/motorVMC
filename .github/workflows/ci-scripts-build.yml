@@ -85,7 +85,7 @@ jobs:
         sudo apt-get -y install ${{ matrix.cmp }}
       if: matrix.utoolchain
     - name: Sanity Check
-      run: python .ci-local/github-actions/test.py
+      run: python .ci-local/github-actions/sanity-check.py
     - name: Prepare and compile dependencies
       run: python .ci/cue.py prepare
     - name: Patch main module

@@ -53,7 +53,7 @@ module_var = None
 for line in lines:
     mObj = pObj.match(line)
     if mObj != None:
-      motor_var = mObj.group()
+      module_var = mObj.group()
       break
 
 # Add the path to the driver module to the RELEASE.local file, since it is needed by the example IOC
