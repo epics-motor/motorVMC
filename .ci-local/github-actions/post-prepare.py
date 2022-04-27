@@ -23,22 +23,21 @@ def sanity_check(filename):
     cat(filename)
     print("{}End of {}{}".format(ANSI_BLUE, filename, ANSI_RESET))
 
-if 'CACHEDIR' in os.environ:
-    cachedir = os.environ['CACHEDIR']
+if 'HOME' in os.environ:
+    # Linux & OS X
+    cache_dir = os.path.join(os.environ['HOME'], ".cache")
 else:
-    cachedir = os.path.join(os.environ['HOME'], ".cache")
+    # Windows
+    cache_dir = os.path.join(os.environ['HOMEDRIVE'], os.environ['HOMEPATH'], ".cache")
 
-if 'PWD' in os.environ:
-    pwd = os.getenv('PWD')
-else:
-    pwd = "."
+module_dir = os.getenv('GITHUB_WORKSPACE')
 
 # Add the path to the driver module to the RELEASE.local file, since it is needed by the example IOC
-update_release_local('MOTOR_VMC', pwd)
+update_release_local('MOTOR_VMC', module_dir)
 
 # Copy the github-actions RELEASE.local to the configure dir
 filename = "configure/RELEASE.local"
-shutil.copy("{}/RELEASE.local".format(cachedir), filename)
+shutil.copy("{}/RELEASE.local".format(cache_dir), filename)
 sanity_check(filename)
 
 # Enable the building of example IOCs
