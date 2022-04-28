@@ -61,13 +61,6 @@ jobs:
             set: modules
             name: "Ub-20 gcc-9 C++11, static"
 
-          - os: ubuntu-16.04
-            cmp: clang
-            configuration: default
-            base: "7.0"
-            set: modules
-            name: "Ub-16 clang-9"
-
           - os: ubuntu-20.04
             cmp: clang
             configuration: default
@@ -76,13 +69,14 @@ jobs:
             set: modules
             name: "Ub-20 clang-10 C++11"
 
-          - os: ubuntu-20.04
-            cmp: gcc
-            configuration: default
-            rtems: "4.10"
-            base: "7.0"
-            set: modules
-            name: "Ub-20 gcc-9 + RT-4.10"
+          ### fails building autosave
+          #!- os: ubuntu-20.04
+          #!  cmp: gcc
+          #!  configuration: default
+          #!  rtems: "4.10"
+          #!  base: "7.0"
+          #!  set: modules
+          #!  name: "Ub-20 gcc-9 + RT-4.10"
 
           - os: ubuntu-20.04
             cmp: gcc
@@ -92,40 +86,26 @@ jobs:
             set: modules
             name: "Ub-20 gcc-9 + RT-4.9"
 
-          - os: ubuntu-20.04
-            cmp: gcc
-            configuration: default
-            rtems: "5"
-            rtems_target: RTEMS-pc686-qemu
-            base: "7.0"
-            set: modules
-            name: "Ub-20 gcc-9 + RT-5.1 pc686"
+          ### fails building asyn
+          #!- os: ubuntu-20.04
+          #!  cmp: gcc
+          #!  configuration: default
+          #!  rtems: "5"
+          #!  rtems_target: RTEMS-pc686-qemu
+          #!  base: "7.0"
+          #!  set: modules
+          #!  name: "Ub-20 gcc-9 + RT-5.1 pc686"
 
-          - os: ubuntu-20.04
-            cmp: gcc
-            configuration: default
-            rtems: "5"
-            rtems_target: RTEMS-beatnik
-            test: NO
-            base: "7.0"
-            set: modules
-            name: "Ub-20 gcc-9 + RT-5.1 beatnik"
-
-          - os: ubuntu-16.04
-            cmp: gcc-4.8
-            utoolchain: true
-            configuration: default
-            base: "7.0"
-            set: modules
-            name: "Ub-16 gcc-4.8"
-
-          - os: ubuntu-16.04
-            cmp: gcc-4.9
-            utoolchain: true
-            configuration: default
-            base: "7.0"
-            set: modules
-            name: "Ub-16 gcc-4.9"
+          ### fails building autosave
+          #!- os: ubuntu-20.04
+          #!  cmp: gcc
+          #!  configuration: default
+          #!  rtems: "5"
+          #!  rtems_target: RTEMS-beatnik
+          #!  test: NO
+          #!  base: "7.0"
+          #!  set: modules
+          #!  name: "Ub-20 gcc-9 + RT-5.1 beatnik"
 
           - os: ubuntu-18.04
             cmp: gcc
@@ -134,21 +114,22 @@ jobs:
             set: modules
             name: "Ub-18 gcc-7"
 
-          - os: ubuntu-18.04
-            cmp: gcc-8
-            utoolchain: true
-            configuration: default
-            base: "7.0"
-            set: modules
-            name: "Ub-18 gcc-8"
+          ### g++-8 not found
+          #!- os: ubuntu-18.04
+          #!  cmp: gcc-8
+          #!  utoolchain: true
+          #!  configuration: default
+          #!  base: "7.0"
+          #!  set: modules
+          #!  name: "Ub-18 gcc-8"
 
-          - os: ubuntu-20.04
-            cmp: gcc-8
-            utoolchain: true
-            configuration: default
-            base: "7.0"
-            set: modules
-            name: "Ub-20 gcc-8"
+          #!- os: ubuntu-20.04
+          #!  cmp: gcc-8
+          #!  utoolchain: true
+          #!  configuration: default
+          #!  base: "7.0"
+          #!  set: modules
+          #!  name: "Ub-20 gcc-8"
 
           - os: ubuntu-20.04
             cmp: clang
@@ -163,20 +144,6 @@ jobs:
             base: "7.0"
             set: modules
             name: "MacOS clang-12"
-
-          - os: windows-2016
-            cmp: vs2017
-            configuration: default
-            base: "7.0"
-            set: modules
-            name: "Win2016 MSC-17"
-
-          - os: windows-2016
-            cmp: vs2017
-            configuration: static
-            base: "7.0"
-            set: modules
-            name: "Win2016 MSC-17, static"
 
           - os: windows-2019
             cmp: gcc
