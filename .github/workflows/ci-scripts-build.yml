@@ -5,7 +5,7 @@
 
 # Set the 'name:' properties to values that work for you (MYMODULE)
 
-name: motorVMC
+name: "GHA build"
 
 # Trigger on pushes to the master branch and PRs
 on:
