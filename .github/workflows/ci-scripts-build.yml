@@ -38,6 +38,7 @@ jobs:
     # Set environment variables from matrix parameters
     env:
       CMP: ${{ matrix.cmp }}
+      BASE: ${{ matrix.base }}
       BCFG: ${{ matrix.configuration }}
       WINE: ${{ matrix.wine }}
       RTEMS: ${{ matrix.rtems }}
