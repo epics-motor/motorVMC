@@ -1,5 +1,5 @@
 # motorVMC
-A Virtual Motor Controller (VMC) with EPICS support.  NOTE: this module can't be used as a submodule of motor, yet.
+A Virtual Motor Controller (VMC) with EPICS support.
 
 [![Build Status](https://github.com/epics-motor/motorVMC/actions/workflows/ci-scripts-build.yml/badge.svg)](https://github.com/epics-motor/motorVMC/actions/workflows/ci-scripts-build.yml)
 <!--[![Travis Build Status](https://travis-ci.org/epics-motor/motorVMC.png)](https://travis-ci.org/epics-motor/motorVMC)-->
@@ -11,7 +11,7 @@ The server behaves like a eight-axis motor controller. The default axis values a
 
 #### Starting the server
 ```
-$ python server.py
+$ python3 server.py
 ``` 
 This will start the server, which listens by default on port **31337**. The port number can be changed by modifying `DEFAULT_PORT` in `server.py`.
 
@@ -64,7 +64,7 @@ This will start the server, which listens by default on port **31337**. The port
 ### Configuration
 
 * The definitions of `MOTOR` and `EPICS_BASE` need to be corrected in `motorVMC/configure/RELEASE` before motorVMC can be built.
-* [optional] The `PREFIX` and `VMC_PORT1` environment variables can be customized.  `VMC_PORT1` needs to match the `DEFAULT_PORT` used by server.py
+* [optional] The `PREFIX` and `VMC_PORT` environment variables can be customized.  `VMC_PORT` needs to match the `DEFAULT_PORT` used by server.py
 
 ### Building motorVMC
 ```
