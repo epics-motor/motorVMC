@@ -112,6 +112,7 @@ def parseCommandLineArgs(args):
 def main(args):
 	port = parseCommandLineArgs(args)
 	server = ConnectionDispatcher(port)
+	print("Listening on port {}".format(port))
 	try:
 		asyncore.loop()
 	except KeyboardInterrupt:
