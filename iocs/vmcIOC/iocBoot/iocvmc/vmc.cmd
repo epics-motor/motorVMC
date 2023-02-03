@@ -17,9 +17,9 @@ asynOctetSetInputEos("VMC_ETH",0,"\r\n")
 asynOctetSetOutputEos("VMC_ETH",0,"\r")
 
 # These motor records can get their prefix from the environment variable
-dbLoadRecords("$(MOTOR)/motorApp/Db/asyn_motor.db","P=$(PREFIX),M=m1,DTYP=asynMotor,PORT=VMC1,ADDR=0,DESC=X,EGU=mm,DIR=Pos,VELO=1,VBAS=.1,ACCL=.2,BDST=0,BVEL=1,BACC=.2,MRES=.0025,PREC=4,DHLM=100,DLLM=-100,INIT=")
-dbLoadRecords("$(MOTOR)/motorApp/Db/asyn_motor.db","P=$(PREFIX),M=m2,DTYP=asynMotor,PORT=VMC1,ADDR=1,DESC=Y,EGU=mm,DIR=Pos,VELO=1,VBAS=.1,ACCL=.2,BDST=0,BVEL=1,BACC=.2,MRES=.0025,PREC=4,DHLM=100,DLLM=-100,INIT=")
-dbLoadRecords("$(MOTOR)/motorApp/Db/asyn_motor.db","P=$(PREFIX),M=m3,DTYP=asynMotor,PORT=VMC1,ADDR=2,DESC=Z,EGU=mm,DIR=Pos,VELO=1,VBAS=.1,ACCL=.2,BDST=0,BVEL=1,BACC=.2,MRES=.0025,PREC=4,DHLM=100,DLLM=-100,INIT=")
+dbLoadRecords("$(MOTOR)/db/asyn_motor.db","P=$(PREFIX),M=m1,DTYP=asynMotor,PORT=VMC1,ADDR=0,DESC=X,EGU=mm,DIR=Pos,VELO=1,VBAS=.1,ACCL=.2,BDST=0,BVEL=1,BACC=.2,MRES=.0025,PREC=4,DHLM=100,DLLM=-100,INIT=")
+dbLoadRecords("$(MOTOR)/db/asyn_motor.db","P=$(PREFIX),M=m2,DTYP=asynMotor,PORT=VMC1,ADDR=1,DESC=Y,EGU=mm,DIR=Pos,VELO=1,VBAS=.1,ACCL=.2,BDST=0,BVEL=1,BACC=.2,MRES=.0025,PREC=4,DHLM=100,DLLM=-100,INIT=")
+dbLoadRecords("$(MOTOR)/db/asyn_motor.db","P=$(PREFIX),M=m3,DTYP=asynMotor,PORT=VMC1,ADDR=2,DESC=Z,EGU=mm,DIR=Pos,VELO=1,VBAS=.1,ACCL=.2,BDST=0,BVEL=1,BACC=.2,MRES=.0025,PREC=4,DHLM=100,DLLM=-100,INIT=")
 # The dbLoadTemplate approach is a cleaner way to load multiple database instances
 #!dbLoadTemplate("vmc.substitutions", "P=$(PREFIX)")
 

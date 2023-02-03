@@ -1,5 +1,5 @@
 # Note: the P macro is omitted below because it is passed to dbLoadTemplates
-file "$(TOP)/db/asyn_motor.db"
+file "$(MOTOR)/db/asyn_motor.db"
 {
 pattern
 {N,   M,       DTYP,         PORT,  ADDR,  DESC,          EGU, DIR,  VELO,  VBAS,  ACCL,  BDST,  BVEL,  BACC,  MRES,  PREC,  DHLM,  DLLM,  INIT}
