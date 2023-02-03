@@ -38,17 +38,27 @@ doWork () {
   then
     ${CHMOD} a+x ${IOC_DIR}/${OUT_FILE}
   fi
-else
+  else
   ${ECHO} "Removing ${IOC_DIR}/${OUT_FILE}"
   ${RM} -f ${IOC_DIR}/${OUT_FILE}
   fi
 
 }
 
+#
 doWork release.pl release.pl
 doWork setup_epics_common setup_epics_common
-doWork start_MEDM_xxx start_medm_${IOC_NAME} "Yes" "${SUBSTITUTION}" 
+doWork start_MEDM_xxx start_MEDM_${IOC_NAME} "Yes" "${SUBSTITUTION}" 
 doWork start_caQtDM_xxx start_caQtDM_${IOC_NAME} "Yes" "${SUBSTITUTION}" 
-# The second sed substition is needed because the location of the new script is one directory above the source script
-# The third sed substitution is needed because we changed the case of the medm start script
-doWork iocBoot/iocxxx/softioc/xxx.sh iocBoot/ioc${IOC_NAME}/${IOC_NAME}.sh "Yes" "${SUBSTITUTION}" 's/\/\.\.$//' 's/MEDM/medm/g'
+#
+if [ ! -d iocBoot/ioc${IOC_NAME}/softioc/commands ]
+then
+  mkdir -p iocBoot/ioc${IOC_NAME}/softioc/commands
+fi
+#
+doWork iocBoot/iocxxx/softioc/xxx.sh iocBoot/ioc${IOC_NAME}/softioc/${IOC_NAME}.sh "Yes" "${SUBSTITUTION}"
+#
+for cmd in console restart run start start_caqtdm start_medm status stop usage
+do
+  doWork iocBoot/iocxxx/softioc/commands/${cmd} iocBoot/ioc${IOC_NAME}/softioc/commands/${cmd} "Yes" "${SUBSTITUTION}"
+done
