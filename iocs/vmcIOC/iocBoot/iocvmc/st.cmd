@@ -8,15 +8,15 @@ cd "${TOP}/iocBoot/${IOC}"
 dbLoadDatabase "$(TOP)/dbd/vmc.dbd"
 vmc_registerRecordDeviceDriver pdbbase
 
-## motorUtil (allstop & alldone)
-dbLoadRecords("$(MOTOR)/db/motorUtil.db", "P=vmc:")
+# Define the IOC prefix
+< settings.iocsh
 
-#
+# Allstop, alldone
+iocshLoad("$(MOTOR)/iocsh/allstop.iocsh", "P=$(PREFIX)")
+
+# Virtual Motor Controller
 < vmc.cmd
 
 iocInit
-
-## motorUtil (allstop & alldone)
-motorUtilInit("vmc:")
 
 # Boot complete

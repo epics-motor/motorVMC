@@ -1,9 +1,8 @@
-### virtual motor controller support
+### Virtual Motor Controller support
 
-epicsEnvSet("PREFIX", "vmc:")
-epicsEnvSet("VMC_PORT1", "31337")
+epicsEnvSet("VMC_PORT", "31337")
 
-drvAsynIPPortConfigure("VMC_ETH","127.0.0.1:$(VMC_PORT1)", 0, 0, 0)
+drvAsynIPPortConfigure("VMC_ETH","127.0.0.1:$(VMC_PORT)", 0, 0, 0)
 
 # Show communication
 #!asynSetTraceMask("VMC_ETH", 0, 3)
