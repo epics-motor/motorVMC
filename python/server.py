@@ -54,7 +54,7 @@ class ConnectionHandler(asynchat.async_chat):
 		## handle actual commands here
 
 		# Display received commands
-		print(request)
+		#!print(request)
 
 		# Commands of form
 		# X MV 400
