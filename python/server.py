@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import controller
 
@@ -22,22 +22,24 @@ class ConnectionDispatcher(asyncore.dispatcher):
 		self.listen(5)
 
 	def handle_accept(self):
-		ConnectionHandler(self.accept(), self.device)
+		# client_info is a tuple with socket as the 1st element
+		client_info = self.accept()
+		ConnectionHandler(client_info[0], self.device)
 
 
 class ConnectionHandler(asynchat.async_chat):
 	## regular expressions, if necessary, can go here
 
-	def __init__(self, (conn, addr), device):
-		asynchat.async_chat.__init__(self, conn)
-		self.set_terminator("\r")
+	def __init__(self, sock, device):
+		asynchat.async_chat.__init__(self, sock)
+		self.set_terminator(b"\r")
 		#
 		self.outputTerminator = "\r\n"
 		self.device = device
 		self.buffer = ""
 
 	def collect_incoming_data(self, data):
-		self.buffer = self.buffer + data
+		self.buffer = self.buffer + data.decode()
 
 	def found_terminator(self):
 		data = self.buffer
@@ -50,20 +52,20 @@ class ConnectionHandler(asynchat.async_chat):
 		## handle actual commands here
 
 		# Display received commands
-		#!print request
+		#!print(request)
 
 		# Commands of form
 		# X MV 400
 		response = self.device.handleCommand(request)
 
 		if response != None:
-			self.sendClientResponse("%s" % response)
+			self.sendClientResponse("{}".format(response))
 
 		return
 
 	def sendClientResponse(self, response=""):
 		data = response + self.outputTerminator
-		self.push(data)
+		self.push(data.encode())
 
 
 def getProgramName(args=None):
@@ -75,14 +77,14 @@ def getProgramName(args=None):
 
 
 def printUsage():
-	print """\
-Usage: %s [-ph]
+	print("""\
+Usage: {} [-ph]
 
 Options:
   -p,--port=NUMBER   Listen on the specified port NUMBER for incoming
-                     connections (default: %d)
+                     connections (default: {})
   -h,--help          Print usage message and exit\
-""" % (getProgramName(), DEFAULT_PORT)
+""".format(getProgramName(), DEFAULT_PORT))
 
 
 def parseCommandLineArgs(args):
@@ -98,7 +100,7 @@ def parseCommandLineArgs(args):
 			sys.exit(0)
 
 	if len(extra) > 0:
-		print "Error: unexpected command-line argument \"%s\"" % extra[0]
+		print("Error: unexpected command-line argument \"{}\"".format(extra[0]))
 		printUsage()
 		sys.exit(1)
 
@@ -108,27 +110,28 @@ def parseCommandLineArgs(args):
 def main(args):
 	port = parseCommandLineArgs(args)
 	server = ConnectionDispatcher(port)
+	print("Listening on port {}".format(port))
 	try:
 		asyncore.loop()
 	except KeyboardInterrupt:
-		print
-		print "Shutting down the server..."
+		print()
+		print("Shutting down the server...")
 		sys.exit(0)
 
 
 if __name__ == '__main__':
 	# Check the python version
-	if sys.version_info < (2,7,0):
-		sys.stderr.write("You need Python 2.7 or later to run this script\n")
-		raw_input("Press enter to quit... ")
+	if sys.version_info < (3,0,0) and sys.version_info < (3,12,0):
+		sys.stderr.write("You need Python 3.0 or later (but less than 3.12) to run this script\n")
+		input("Press enter to quit... ")
 		sys.exit(1)
 
 	# Try to run the server
 	try:
 		main(sys.argv)
-	except Exception, e:
+	except Exception as e:
 		if isinstance(e, SystemExit):
 			raise e
 		else:
-			print "Error: %s" % e
+			print("Error: {}".format(e))
 			sys.exit(1)
