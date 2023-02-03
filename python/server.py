@@ -34,14 +34,14 @@ class ConnectionHandler(asynchat.async_chat):
 
 	def __init__(self, sock, device):
 		asynchat.async_chat.__init__(self, sock)
-		self.set_terminator("\r")
+		self.set_terminator(b"\r")
 		#
 		self.outputTerminator = "\r\n"
 		self.device = device
 		self.buffer = ""
 
 	def collect_incoming_data(self, data):
-		self.buffer = self.buffer + data
+		self.buffer = self.buffer + data.decode()
 
 	def found_terminator(self):
 		data = self.buffer
@@ -61,13 +61,13 @@ class ConnectionHandler(asynchat.async_chat):
 		response = self.device.handleCommand(request)
 
 		if response != None:
-			self.sendClientResponse("%s".format(response))
+			self.sendClientResponse("{}".format(response))
 
 		return
 
 	def sendClientResponse(self, response=""):
 		data = response + self.outputTerminator
-		self.push(data)
+		self.push(data.encode())
 
 
 def getProgramName(args=None):
@@ -122,9 +122,9 @@ def main(args):
 
 if __name__ == '__main__':
 	# Check the python version
-	if sys.version_info < (2,7,0):
-		sys.stderr.write("You need Python 2.7 or later to run this script\n")
-		raw_input("Press enter to quit... ")
+	if sys.version_info < (3,0,0) and sys.version_info < (3,12,0):
+		sys.stderr.write("You need Python 3.0 or later (but less than 3.12) to run this script\n")
+		input("Press enter to quit... ")
 		sys.exit(1)
 
 	# Try to run the server
