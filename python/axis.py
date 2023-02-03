@@ -96,8 +96,8 @@ class Axis:
 			if self.moveDistance < (self.accelDistance + self.decelDistance):
 				# Desired speed is never reached
 				peakVelocity = math.sqrt( 2 * self.acceleration * self.deceleration * self.moveDistance / (self.acceleration + self.deceleration) )
-				print "+---------"
-				print "peakVelocity =", peakVelocity
+				print("+---------")
+				print("peakVelocity =", peakVelocity)
 				self.moveVelocity = peakVelocity
 
 				# Recalculate values
@@ -115,21 +115,21 @@ class Axis:
 			self.decelStartTime = self.accelDuration + self.constVelDuration
 			self.moveDuration = self.decelStartTime + self.decelDuration
 
-			print "+--------- motor", (self.index + 1)
-			print "Start Pos:", self.lastPosition, self.units
-			print "End Pos:", self.targetPosition, self.units
-			print "Move Distance:", self.moveDistance, self.units
-			print "Move Duration:", self.moveDuration, "seconds"
-			print
-			print "Accel Duration:", self.accelDuration, "seconds"
-			print "Accel Distance:", self.accelDistance, self.units
-			print
-			print "Constant Vel Duration:", self.constVelDuration, "seconds"
-			print "Decel Start Time:", self.decelStartTime, "seconds"
-			print
-			print "Decel Duration:", self.decelDuration, "seconds"
-			print "Decel Distance:", self.decelDistance, self.units
-			print
+			print("+--------- motor", (self.index + 1))
+			print("Start Pos:", self.lastPosition, self.units)
+			print("End Pos:", self.targetPosition, self.units)
+			print("Move Distance:", self.moveDistance, self.units)
+			print("Move Duration:", self.moveDuration, "seconds")
+			print()
+			print("Accel Duration:", self.accelDuration, "seconds")
+			print("Accel Distance:", self.accelDistance, self.units)
+			print()
+			print("Constant Vel Duration:", self.constVelDuration, "seconds")
+			print("Decel Start Time:", self.decelStartTime, "seconds")
+			print()
+			print("Decel Duration:", self.decelDuration, "seconds")
+			print("Decel Distance:", self.decelDistance, self.units)
+			print()
 
 		return "OK"
 
@@ -201,7 +201,7 @@ class Axis:
 					# stop received while decelerating, do nothing
 					pass
 				else:
-					print "Error: Stop received after a move should have been complete."
+					print("Error: Stop received after a move should have been complete.")
 
 		return "OK"
 
@@ -302,23 +302,23 @@ class Axis:
 
 		# Update limit status
 		if self.enforceLimits == True:
-                	#
-                        if self.currentPosition > self.highLimit:
-                        	self.status.setHighLimit()
-                                if (self.status.doneMoving == 0) and (self.direction == 1):
-                                	self.stop()
-                        else:
-                        	self.status.resetHighLimit()
-                          
-                	#
-                        if self.currentPosition < self.lowLimit:
-                        	self.status.setLowLimit()
-                                if (self.status.doneMoving == 0) and (self.direction == -1):
-                                	self.stop()
-                        else:
-                        	self.status.resetLowLimit()
+			#
+			if self.currentPosition > self.highLimit:
+				self.status.setHighLimit()
+				if (self.status.doneMoving == 0) and (self.direction == 1):
+					self.stop()
+			else:
+				self.status.resetHighLimit()
+			
+			#
+			if self.currentPosition < self.lowLimit:
+				self.status.setLowLimit()
+				if (self.status.doneMoving == 0) and (self.direction == -1):
+					self.stop()
+			else:
+				self.status.resetLowLimit()
 		else:
-              		self.status.resetLowLimit()
+			self.status.resetLowLimit()
 			self.status.resetHighLimit()
 
 		return self.status.getStatus()
