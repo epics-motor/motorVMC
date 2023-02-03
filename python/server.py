@@ -9,8 +9,6 @@ import asynchat
 import asyncore
 import socket
 
-import traceback
-
 DEFAULT_PORT = 31337
 
 class ConnectionDispatcher(asyncore.dispatcher):
