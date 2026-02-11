@@ -1,0 +1,9 @@
+version = 1
+SPDX-PackageName = "motorVMC"
+SPDX-PackageDownloadLocation = "https://github.com/epics-motor/motorVMC"
+
+[[annotations]]
+path = "**"
+SPDX-FileCopyrightText = "UChicago Argonne LLC."
+SPDX-License-Identifier = "EPICS"
+
