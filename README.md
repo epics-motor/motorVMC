@@ -2,7 +2,6 @@
 A Virtual Motor Controller (VMC) with EPICS support.
 
 [![Build Status](https://github.com/epics-motor/motorVMC/actions/workflows/ci-scripts-build.yml/badge.svg)](https://github.com/epics-motor/motorVMC/actions/workflows/ci-scripts-build.yml)
-[![REUSE status](https://api.reuse.software/badge/github.com/epics-motor/motorVMC)](https://api.reuse.software/info/github.com/epics-motor/motorVMC)
 <!--[![Travis Build Status](https://travis-ci.org/epics-motor/motorVMC.png)](https://travis-ci.org/epics-motor/motorVMC)-->
 <!--[![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/github/epics-motor/motorVMC?branch=master&svg=true)](https://ci.appveyor.com/project/kmpeters/motorVMC)-->
 
