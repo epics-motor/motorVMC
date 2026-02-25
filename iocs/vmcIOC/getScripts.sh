@@ -57,7 +57,7 @@ then
   mkdir -p iocBoot/ioc${IOC_NAME}/softioc/commands
 fi
 #
-doWork iocBoot/iocxxx/softioc/xxx.pl iocBoot/ioc${IOC_NAME}/softioc/${IOC_NAME}.pl "Yes" "${SUBSTITUTION}"
+doWork iocBoot/iocxxx/softioc/xxx.pl iocBoot/ioc${IOC_NAME}/softioc/${IOC_NAME}.pl "Yes" "${SUBSTITUTION}" "s/st.cmd.Linux/st.cmd/g"
 #
 for cmd in caqtdm.pm _commands.pm console.pm _info.pm medm.pm phoebus.pm remote.pm restart.pm run.pm start.pm status.pm stop.pm usage.pm
 do
