@@ -50,15 +50,18 @@ doWork release.pl release.pl
 doWork setup_epics_common setup_epics_common
 doWork start_MEDM_xxx start_MEDM_${IOC_NAME} "Yes" "${SUBSTITUTION}" 
 doWork start_caQtDM_xxx start_caQtDM_${IOC_NAME} "Yes" "${SUBSTITUTION}" 
+doWork start_phoebus_xxx start_phoebus_${IOC_NAME} "Yes" "${SUBSTITUTION}" 
 #
 if [ ! -d iocBoot/ioc${IOC_NAME}/softioc/commands ]
 then
   mkdir -p iocBoot/ioc${IOC_NAME}/softioc/commands
 fi
 #
-doWork iocBoot/iocxxx/softioc/xxx.sh iocBoot/ioc${IOC_NAME}/softioc/${IOC_NAME}.sh "Yes" "${SUBSTITUTION}"
+doWork iocBoot/iocxxx/softioc/xxx.pl iocBoot/ioc${IOC_NAME}/softioc/${IOC_NAME}.pl "Yes" "${SUBSTITUTION}"
 #
-for cmd in console restart run start start_caqtdm start_medm status stop usage
+for cmd in caqtdm.pm _commands.pm console.pm _info.pm medm.pm phoebus.pm remote.pm restart.pm run.pm start.pm status.pm stop.pm usage.pm
 do
   doWork iocBoot/iocxxx/softioc/commands/${cmd} iocBoot/ioc${IOC_NAME}/softioc/commands/${cmd} "Yes" "${SUBSTITUTION}"
 done
+#
+doWork xxxApp/op/ui/xxx.ui ${IOC_NAME}App/op/ui/${IOC_NAME}.ui "" "${SUBSTITUTION}"
