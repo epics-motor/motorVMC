@@ -28,6 +28,11 @@ vmc_LIBS += vmc
 vmc_LIBS += motor
 vmc_LIBS += asyn
 
+ifdef STD
+  vmc_DBD += stdSupport.dbd
+  vmc_LIBS := std $(vmc_LIBS)
+endif
+
 # vmc_registerRecordDeviceDriver.cpp derives from vmc.dbd
 vmc_SRCS += vmc_registerRecordDeviceDriver.cpp
 
