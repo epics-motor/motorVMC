@@ -23,6 +23,7 @@ class Controller:
 				       'LL':self.setLowLimit,
 				       'HL':self.setHighLimit},
 				    2:{'POS?':self.queryPosition, 
+				       'FBK?':self.queryFeedbackPosition,
 				       'ST?':self.queryStatus,
 				       'ACC?':self.queryAcceleration,
 				       'VEL?':self.queryVelocity,
@@ -79,6 +80,10 @@ class Controller:
 	def queryPosition(self, axis):
 		# round the result, since the controller units are counts
 		return self.refinePos(self.axisList[self.axisDict[axis]].readPosition())
+
+	def queryFeedbackPosition(self, axis):
+		# round the result, since the controller units are counts
+		return self.refinePos(self.axisList[self.axisDict[axis]].readFeedbackPosition())
 
 	def setPosition(self, axis, pos):
 		return self.axisList[self.axisDict[axis]].setPosition(int(pos))

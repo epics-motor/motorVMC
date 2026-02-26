@@ -1,0 +1,4 @@
+record(motor, "$(P)$(M)")
+{
+  field(ERES, "$(ERES=0.002)")
+}
