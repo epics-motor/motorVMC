@@ -3,6 +3,7 @@
 import status
 import datetime
 import math
+import random
 
 class Axis:
 	'''
@@ -22,13 +23,18 @@ class Axis:
 		self.lowLimit = -40000
 		#
 		self.units = "counts"
+		# EGU/step
 		self.resolution = 1.0
+		# EGU/count
+		self.encoderResolution = 0.8
+		self.encoderJitter = 6
 		#
 		self.moveStartTime = None
 		self.abortTime = None
 		#
 		self.lastPosition = 0
 		self.currentPosition = 0
+		self.currentFeedbackPosition = 0
 		self.currentDisplacement = 0
 		self.targetPosition = 0
 		self.direction = 1
@@ -278,6 +284,15 @@ class Axis:
 			# Move is in progress, do nothing
 			pass
 		return "OK"
+
+	def readFeedbackPosition(self):
+		pos = self.readPosition()
+		# Convert the position from motor steps to encoder counts
+		fbkPos = pos * self.resolution / self.encoderResolution
+		# Add some jitter to simulate a real encoder
+		self.currentFeedbackPosition = fbkPos + (random.random() - 0.5) * self.encoderJitter
+		
+		return self.currentFeedbackPosition
 
 	# Does it make more sense to have an updateController() method that is called before each readStatus and readPosition call?
 

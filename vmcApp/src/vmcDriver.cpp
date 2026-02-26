@@ -162,9 +162,10 @@ VirtualMotorAxis::VirtualMotorAxis(VirtualMotorController *pC, int axisNo)
   // Zero the encoder position (this only appears to be a problem on windows)
   setDoubleParam(pC_->motorEncoderPosition_, 0.0);
 
+  // Tell the motor record the axis has an encoder
+  setIntegerParam(pC->motorStatusHasEncoder_, 1);
   // Allow CNEN to turn motor power on/off
   //setIntegerParam(pC->motorStatusGainSupport_, 1);
-  //setIntegerParam(pC->motorStatusHasEncoder_, 1);
 
   // Make the changed parameters take effect
   callParamCallbacks();
@@ -422,6 +423,15 @@ asynStatus VirtualMotorAxis::poll(bool *moving)
   // The response string is of the form "0.00000"
   position = atof((const char *) &pC_->inString_);
   setDoubleParam(pC_->motorPosition_, position);
+
+  // Read the current feedback position
+  sprintf(pC_->outString_, "%d FBK?", axisIndex_);
+  comStatus = pC_->writeReadController();
+  if (comStatus) 
+    goto skip;
+  // The response string is of the form "0.00000"
+  position = atof((const char *) &pC_->inString_);
+  setDoubleParam(pC_->motorEncoderPosition_, position);
 
   // Read the moving status of this motor
   sprintf(pC_->outString_, "%d ST?", axisIndex_);

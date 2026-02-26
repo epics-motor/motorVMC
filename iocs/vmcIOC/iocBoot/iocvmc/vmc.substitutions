@@ -12,3 +12,18 @@ pattern
 {7,  "m$(N)",  "asynMotor",  VMC1,  6,     "motor $(N)",  deg, Pos,  1,     .1,    .2,    0,     1,     .2,    0.01,    4,     100,   -100,  ""}
 {8,  "m$(N)",  "asynMotor",  VMC1,  7,     "motor $(N)",  deg, Pos,  1,     .1,    .2,    0,     1,     .2,    0.01,    4,     100,   -100,  ""}
 }
+
+# NOTE: the ERES defaults to 80% the MRES
+file "$(TOP)/db/asyn_motor_extra.db"
+{
+pattern
+{N,   M,       ERES}
+{1,  "m$(N)",  0.002}
+{2,  "m$(N)",  0.002}
+{3,  "m$(N)",  0.002}
+{4,  "m$(N)",  0.008}
+{5,  "m$(N)",  0.008}
+{6,  "m$(N)",  0.008}
+{7,  "m$(N)",  0.008}
+{8,  "m$(N)",  0.008}
+}

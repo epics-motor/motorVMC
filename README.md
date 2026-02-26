@@ -34,6 +34,7 @@ This will start the server, which listens by default on port **31337**. The port
   1 BAS <base_velocity>		# Set base velocity (counts/s)
   1 AB				# Abort motion
   1 POS?			# Query position (returns: counts)
+  1 FBK?			# Query position (returns: encoder counts)
   1 ST?				# Query status (returns: integer)
 	 Status bit definitions:
 	 Direction	0x1
