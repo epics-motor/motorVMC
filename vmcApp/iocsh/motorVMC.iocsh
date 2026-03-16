@@ -1,0 +1,58 @@
+# ### motorVMC.iocsh ###
+
+#- ###################################################
+#- INSTANCE         - Name of asyn port to create
+#- IP_ADDR          - IP address of controller
+#-                  - Default: 127.0.0.1
+#-
+#- TCP_PORT         - Controller's TCP control port
+#-                  - Default: 31337
+#-
+#- NUM_AXES         - Optional: Number of axes to create for this controller
+#-                    Default: 8
+#-
+#- MOVING_POLL      - Optional: Moving poll period (ms)
+#-                    Default: 100 ms
+#- 
+#- IDLE_POLL        - Optional: Idle poll period (ms)
+#-                    Default: 1000 ms
+#-
+#- SUB              - Optional: Subsitutions file (asyn_motor.db), Macros P, DTYP, PORT, 
+#-                    Default: $(MOTOR_VMC)/iocsh/EXAMPLE_motorVMC.substitutions
+#-
+#- TRACE_MASK       - Optional: Asyn trace mask
+#-                    Default: ERROR
+#-
+#- TRACEIO_MASK     - Optional: Asyn trace I/O mask
+#-                    Default: ASCII
+#-
+#- ASYN_RECORD      - Optional: Asyn record name
+#-                    Default: asyn_1
+#- ###################################################
+
+# VMC ethernet connection settings
+drvAsynIPPortConfigure("$(INSTANCE)_ETH","$(IP_ADDR=127.0.0.1):$(TCP_PORT=31337)", 0, 0, 0)
+
+# Only show errors - change to ERROR|DRIVER for more info
+asynSetTraceMask("$(INSTANCE)_ETH", 0, $(TRACE_MASK=ERROR))
+# Leave ascii selected so traces can be turned on with a single click
+asynSetTraceIOMask("$(INSTANCE)_ETH", 0, $(TRACEIO_MASK=ASCII))
+
+# Set end-of-string terminators
+asynOctetSetInputEos("$(INSTANCE)_ETH",0,"\r\n")
+asynOctetSetOutputEos("$(INSTANCE)_ETH",0,"\r")
+
+# VirtualMotorController(
+#    portName          The name of the asyn port that will be created for this driver
+#    VirtualMotorPortName     The name of the drvAsynSerialPort that was created previously to connect to the VirtualMotor controller 
+#    numAxes           The number of axes that this controller supports 
+#    movingPollPeriod  The time between polls when any axis is moving 
+#    idlePollPeriod    The time between polls when no axis is moving 
+#
+VirtualMotorCreateController("$(INSTANCE)", "$(INSTANCE)_ETH", $(NUM_AXES=8), $(MOVING_POLL=100), $(IDLE_POLL=1000))
+
+# The motor records can get their prefix from the environment variable
+dbLoadTemplate("$(SUB=$(MOTOR_VMC)/iocsh/EXAMPLE_motorVMC.substitutions)", "P=$(PREFIX),PORT=$(INSTANCE)")
+
+# Use the naming convention for asyn records from xxx so the displays can be used without modification
+dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(PREFIX),R=$(ASYN_RECORD=asyn_1),PORT=$(INSTANCE)_ETH,ADDR=0,OMAX=0,IMAX=0")

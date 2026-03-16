@@ -1,6 +1,8 @@
 bin
 dbd
 lib
+db
+/iocsh
 O.*
 *.pyc
 envPaths

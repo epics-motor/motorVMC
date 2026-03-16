@@ -1,0 +1,2 @@
+# Load motorVMC support will all the default macros
+iocshLoad("$(MOTOR_VMC)/iocsh/motorVMC.iocsh", "INSTANCE=VMC")

@@ -14,8 +14,11 @@ vmc_registerRecordDeviceDriver pdbbase
 # Allstop, alldone
 iocshLoad("$(MOTOR)/iocsh/allstop.iocsh", "P=$(PREFIX)")
 
-# Virtual Motor Controller
+## Virtual Motor Controller (choose one of the following setups)
+# Use this line for 3-axes
 < vmc.cmd
+# Use this line for 8-axes
+#!< vmc.iocsh
 
 iocInit
 

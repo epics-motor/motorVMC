@@ -11,7 +11,7 @@ include $(TOP)/configure/CONFIG
 # Create and install (or just install) into <top>/db
 # databases, templates, substitutions like this
 #DB += xxx.db
-DB += asyn_motor_extra.db
+DB_INSTALLS += $(MOTOR_VMC)/db/asyn_motor_extra.db
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
