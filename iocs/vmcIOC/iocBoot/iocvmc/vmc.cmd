@@ -5,11 +5,11 @@ epicsEnvSet("VMC_PORT", "31337")
 drvAsynIPPortConfigure("VMC_ETH","127.0.0.1:$(VMC_PORT)", 0, 0, 0)
 
 # Show communication
-#!asynSetTraceMask("VMC_ETH", 0, 3)
+#!asynSetTraceMask("VMC_ETH", 0, ERROR|DRIVER)
 # Only show errors
-asynSetTraceMask("VMC_ETH", 0, 1)
+asynSetTraceMask("VMC_ETH", 0, ERROR)
 # Leave ascii selected so traces can be turned on with a single click
-asynSetTraceIOMask("VMC_ETH", 0, 1)
+asynSetTraceIOMask("VMC_ETH", 0, ASCII)
 
 # Set end-of-string terminators
 asynOctetSetInputEos("VMC_ETH",0,"\r\n")
@@ -23,8 +23,6 @@ dbLoadRecords("$(MOTOR)/db/asyn_motor.db","P=$(PREFIX),M=m3,DTYP=asynMotor,PORT=
 dbLoadRecords("$(TOP)/db/asyn_motor_extra.db","P=$(PREFIX),M=m1,ERES=0.002")
 dbLoadRecords("$(TOP)/db/asyn_motor_extra.db","P=$(PREFIX),M=m2,ERES=0.002")
 dbLoadRecords("$(TOP)/db/asyn_motor_extra.db","P=$(PREFIX),M=m3,ERES=0.002")
-# The dbLoadTemplate approach is a cleaner way to load multiple database instances
-#!dbLoadTemplate("vmc.substitutions", "P=$(PREFIX)")
 
 # VirtualMotorController(
 #    portName          The name of the asyn port that will be created for this driver
@@ -39,8 +37,6 @@ VirtualMotorCreateController("VMC1", "VMC_ETH", 3, 250, 1000)
 #!VirtualMotorCreateController("VMC1", "VMC_ETH", 3, 250, 10000)
 # No idle polling
 #!VirtualMotorCreateController("VMC1", "VMC_ETH", 3, 250, 0)
-# Extra axes, 10-second idle polling
-#!VirtualMotorCreateController("VMC1", "VMC_ETH", 8, 250, 10000)
 
 # Use the naming convention for asyn records from xxx so the displays can be used without modification
 dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(PREFIX),R=asyn_1,PORT=VMC_ETH,ADDR=0,OMAX=0,IMAX=0")
