@@ -27,7 +27,7 @@ class Status:
 		self.MOVING = 1 << 2
 		self.HIGH_LIMIT = 1 << 3
 		self.LOW_LIMIT = 1 << 4
-		self.HOMING = 1 >> 5
+		self.HOMING = 1 << 5
 		self.HOME_LIMIT = 1 << 6
 		self.HOMED = 1 << 7
 		self.ERROR = 1 << 8
