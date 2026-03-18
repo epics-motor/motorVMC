@@ -12,6 +12,7 @@ on:
   push:
     paths-ignore:
       - 'docs/*'
+      - 'python/*'
       - 'README.md'
       - '**/*.html'
       - '**/*.md'
@@ -22,6 +23,7 @@ on:
   pull_request:
     paths-ignore:
       - 'docs/*'
+      - 'python/*'
       - 'README.md'
       - '**/*.html'
       - '**/*.md'
