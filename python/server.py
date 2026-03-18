@@ -2,70 +2,64 @@
 
 import controller
 
+import asyncio
 import os
 import sys
 import getopt
-import asynchat
-import asyncore
-import socket
 
 DEFAULT_PORT = 31337
-
-class ConnectionDispatcher(asyncore.dispatcher):
-	def __init__(self, port):
-		asyncore.dispatcher.__init__(self)
-		self.port = port
-		self.device = controller.Controller()
-		self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
-		self.set_reuse_addr()
-		self.bind(("", port))
-		self.listen(5)
-
-	def handle_accept(self):
-		# client_info is a tuple with socket as the 1st element
-		client_info = self.accept()
-		ConnectionHandler(client_info[0], self.device)
+OUTPUT_TERMINATOR = "\r\n"
 
 
-class ConnectionHandler(asynchat.async_chat):
-	## regular expressions, if necessary, can go here
+async def handle_connection(reader, writer, device):
+	addr = writer.get_extra_info("peername")
+	try:
+		while True:
+			# Read until \r terminator
+			try:
+				data = await reader.readuntil(b"\r")
+			except asyncio.IncompleteReadError:
+				# Client disconnected mid-message
+				break
+			except ConnectionResetError:
+				break
 
-	def __init__(self, sock, device):
-		asynchat.async_chat.__init__(self, sock)
-		self.set_terminator(b"\r")
-		#
-		self.outputTerminator = "\r\n"
-		self.device = device
-		self.buffer = ""
+			request = data.decode().strip()
+			if not request:
+				continue
 
-	def collect_incoming_data(self, data):
-		self.buffer = self.buffer + data.decode()
+			# Dispatch command to the controller
+			response = device.handleCommand(request)
 
-	def found_terminator(self):
-		data = self.buffer
-		self.buffer = ""
-		self.handleClientRequest(data)
+			if response is not None:
+				output = "{}{}".format(response, OUTPUT_TERMINATOR)
+				writer.write(output.encode())
+				await writer.drain()
+	except asyncio.CancelledError:
+		pass
+	finally:
+		writer.close()
+		try:
+			await writer.wait_closed()
+		except Exception:
+			pass
 
-	def handleClientRequest(self, request):
-		request = request.strip()
 
-		## handle actual commands here
+async def run_server(port):
+	device = controller.Controller()
 
-		# Display received commands
-		#!print(request)
+	# Use a closure to pass the shared device to each connection handler
+	async def client_handler(reader, writer):
+		await handle_connection(reader, writer, device)
 
-		# Commands of form
-		# X MV 400
-		response = self.device.handleCommand(request)
+	server = await asyncio.start_server(client_handler, "", port)
+	print("Listening on port {}".format(port))
 
-		if response != None:
-			self.sendClientResponse("{}".format(response))
-
-		return
-
-	def sendClientResponse(self, response=""):
-		data = response + self.outputTerminator
-		self.push(data.encode())
+	try:
+		async with server:
+			await server.serve_forever()
+	except asyncio.CancelledError:
+		pass
 
 
 def getProgramName(args=None):
@@ -109,10 +103,8 @@ def parseCommandLineArgs(args):
 
 def main(args):
 	port = parseCommandLineArgs(args)
-	server = ConnectionDispatcher(port)
-	print("Listening on port {}".format(port))
 	try:
-		asyncore.loop()
+		asyncio.run(run_server(port))
 	except KeyboardInterrupt:
 		print()
 		print("Shutting down the server...")
@@ -121,8 +113,8 @@ def main(args):
 
 if __name__ == '__main__':
 	# Check the python version
-	if sys.version_info < (3,0,0) and sys.version_info < (3,12,0):
-		sys.stderr.write("You need Python 3.0 or later (but less than 3.12) to run this script\n")
+	if sys.version_info < (3, 7, 0):
+		sys.stderr.write("You need Python 3.7 or later to run this script\n")
 		input("Press enter to quit... ")
 		sys.exit(1)
 
